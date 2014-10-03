@@ -8,6 +8,7 @@ import Data.Foldable(elem, asum)
 import Text.Parsec(parse)
 import Data.Char
 import Data.Bool
+import Data.Geo.Coordinate
 
 skipChars ::
   CharParsing f =>
@@ -20,23 +21,26 @@ satisfyInteger ::
   (Int -> Bool)
   -> p Int  
 satisfyInteger p =
-  let digit' =
-        fmap digitToInt digit
-      sat n =
-        try (do c <- digit'
-                bool3 (n * 10 + c)) <|> return n
-      bool3 =
-        liftA3 bool return sat p
+  let sat n =
+        try (digitP n) <|> return n
+      digitP n =
+        do c <- digit
+           liftA3 bool return sat p (n * 10 + digitToInt c)
   in do sn <- optional (char '-' <|> char '+') 
-        c1 <- digit'
-        d  <- bool3 c1
+        d  <- digitP 0 
         return (bool id negate (elem '-' sn) d)
 
-dg90 ::
+parseDegreesLatitude ::
  (CharParsing f, Monad f) =>
-  f Int
-dg90 =
-  satisfyInteger (\n -> n <= 8)
+  f DegreesLatitude
+parseDegreesLatitude =
+  fmap remDegreesLatitude (satisfyInteger (<= 8))
+
+parseDegreesLongitude ::
+ (CharParsing f, Monad f) =>
+  f DegreesLongitude
+parseDegreesLongitude =
+  fmap remDegreesLongitude (satisfyInteger (<= 17))
 
 dg180 ::
  (CharParsing f, Monad f) =>

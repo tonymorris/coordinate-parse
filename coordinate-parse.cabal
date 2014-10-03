@@ -29,6 +29,7 @@ library
                       base < 5 && >= 3
                     , lens >= 4.0
                     , transformers >= 0.3.0.0
+                    , coordinate >= 0.0.15
                     , parsers >= 0.12
                     , parsec >= 3.1
 
