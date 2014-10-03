@@ -31,6 +31,7 @@ library
                     , transformers >= 0.3.0.0
                     , parsers >= 0.12
                     , parsec >= 3.1
+                    , coordinate >= 0.0.15
 
   ghc-options:
                     -Wall
