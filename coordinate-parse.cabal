@@ -4,7 +4,7 @@ license:            BSD3
 license-file:       LICENCE
 author:             Tony Morris <ʇǝu˙sıɹɹoɯʇ@ןןǝʞsɐɥ>
 maintainer:         Tony Morris
-copyright:          Copyright (C) 2014 Tony Morris
+copyright:          Copyright (C) 2016 Tony Morris
 synopsis:           Parsers for coordinates
 category:           Development
 description:        Parsers for coordinates
@@ -26,12 +26,11 @@ library
                     Haskell2010
 
   build-depends:
-                      base < 5 && >= 3
-                    , lens >= 4.0
+                      base < 5 && >= 4.8
+                    , lens >= 4.3.3 && < 5
                     , transformers >= 0.3.0.0
-                    , coordinate >= 0.0.15
-                    , parsers >= 0.12
-                    , parsec >= 3.1
+                    , coordinate >= 0.0.19 && < 0.1
+                    , parsers >= 0.12.3 && < 0.13
 
   ghc-options:
                     -Wall
